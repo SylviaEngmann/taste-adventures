@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Router, Link } from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Login from './components/Login';
@@ -11,33 +11,61 @@ import createHistory from 'history/createBrowserHistory';
 const history = createHistory({forceRefresh:true});   
 
 function App() {
+
+  async function login(input) {
+    let options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input)
+    };
+
+    try {
+      let response = await fetch('http://localhost:5000/login', options);
+      if (response.ok) {
+        let user = await response.json();
+        localStorage.setItem('user', JSON.stringify(user));
+        history.push('/dashboard');
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
+    } catch (err) {
+      console.log(`Network error: ${err.message}`);
+    }
+  }
+
+  async function register(input) {
+    let options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input)
+    };
+
+    try {
+      let response = await fetch('http://localhost:5000/register', options);
+      if (response.ok) {
+        let user = await response.json();
+        localStorage.setItem('user', JSON.stringify(user));
+        history.push('/dashboard');
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
+    } catch (err) {
+      console.log(`Network error: ${err.message}`);
+    }
+  }
+
   return (
-    <div className="App">
+    <div className="container-fluid">
       <Router history={history}>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">HOME</Link>
-            </li>
-            <li>
-              <Link to="/login">LOGIN</Link>
-            </li>
-            <li>
-              <Link to="/register">REGISTER</Link>
-            </li>
-          </ul>
-        </nav>
-        </div>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             < Home/>
           </Route>
           <Route path="/login">
-            < Login/>
+            < Login submitCb={login}/>
           </Route>
           <Route path="/register">
-            < Register/>
+            < Register submitCb={register}/>
           </Route>
           <Route path="/dashboard">
             < Dashboard />
