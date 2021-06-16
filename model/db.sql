@@ -1,4 +1,3 @@
-CREATE DATABASE tasteadventure;
 
 DROP TABLE IF EXISTS lovedmeals;
 DROP TABLE IF EXISTS users;
@@ -46,7 +45,6 @@ VALUES
     ('Spanish omelette', 'Spain', 'Lunch', 'Eggs, olive oil', 'Cut potatoes', '08:00:00');
 
 
-// this has a foreign key child/parent problem we need to solve
 INSERT INTO lovedmeals (userID, mealID)
 VALUES
     (1, 1),
