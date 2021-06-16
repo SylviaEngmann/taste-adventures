@@ -9,10 +9,10 @@ const DB_NAME = process.env.DB_NAME;
 
 //change your personal password or username here
 const con = mysql.createConnection({
-  host: DB_HOST || "127.0.0.1",
-  user: DB_USER || "root",
-  password: DB_PASS || "root",
-  database: DB_NAME || "tasteadventure",
+  host: DB_HOST || DB_HOST,
+  user: DB_USER || DB_USER,
+  password: DB_PASS || DB_PASS,
+  database: DB_NAME || DB_NAME,
   multipleStatements: true
 });
 
