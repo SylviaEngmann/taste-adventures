@@ -5,15 +5,47 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import  '../App.css';
 import './Recipe.css'
 
+import Nav from './Nav';
+
+
+
+
 const Recipe = (props) => {
 
+    const slogan = {
+        color: "#F9A826",
+        fontSize: "15px",
+        fontFamily: "Parisienne !important",
+        textAlign: "left",
+        marginTop: "-2.5rem",
+        padding: "25px" 
+      };
+
+      const name = {
+        color: "#847b6b",
+        fontSize: "25px",
+        textAlign: "left",
+        padding: "25px" ,
+        marginTop: "2rem"
+    }
    
     // const [isOpen, setIsOpen] = useState(false);
     // const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <div className="recipeTable">
+        <div className="row">
+            {/* <div className="recipeTable"> */}
 
+            
+                <div className="col">
+                    <h1 style={name}>TASTE ADVENTURE</h1>
+                    <p style={slogan}>Foodies around the world</p>
+                </div>
+                <div className="col2">
+                    <Nav />
+                </div> 
+            {/* </div> */}
+            <div className="recipeTable">
          {   
         props.meals1 && 
         props.meals1.map(m => (
@@ -35,10 +67,9 @@ const Recipe = (props) => {
 
         </Card>
 
-
         ))
     }
-
+    </div>
         </div>
     )
 }
@@ -49,16 +80,12 @@ export default Recipe;
 
 
 {/* <Breadcrumb tag="nav" listTag="div">
-
 <BreadcrumbItem key={m.ingredients} 
 tag="a" href="#" 
-
 >Ingredients  
 <Link to={m.ingredients} >
-
 </Link>
 </BreadcrumbItem> 
-
 <BreadcrumbItem tag="a" href="#">Preparation
 </BreadcrumbItem>
 {/* <h3>{m.preparation}</h3> */}
