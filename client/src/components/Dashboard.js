@@ -2,7 +2,8 @@ import React, { useEffect, useState }  from 'react';
 import Nav from './Nav';
 import Map from './Map';
 import Recipe from './Recipe';
-import {CardImg, CardText, CardTitle, Card} from 'reactstrap';
+import {Collapse, Button, CardBody, Card } from 'reactstrap';
+import {CardImg, CardText, CardTitle, CardSubtitle} from 'reactstrap';
 import  '../App.css';
 
 const name = {
@@ -30,6 +31,10 @@ const randMeal = {
 
 const page = {
     marginTop: "2rem"
+}
+
+const h5 ={
+    color: "#E0FFFF",
 }
 
 
@@ -67,14 +72,45 @@ export default function Dashboard() {
                 <div className="col" style={randMeal}>
                     <button className="generic-button" onClick={randomRecipe}>Get Random Recipe</button>
                     <div className="randomRecipe">
-                        
-                                <img src={randomMeal.strMealThumb} alt=" " style={mealImg}/>
-                                <h4>{randomMeal.strMeal}</h4>    
+                    <Card>
+                        <CardBody>
+                            <CardTitle tag="h5">{randomMeal.strMeal}</CardTitle>
+                            <CardSubtitle tag="h6" className="mb-2 text-muted">Cuisine: {randomMeal.strArea}</CardSubtitle>
+                            <CardBody>
+                            <img src={randomMeal.strMealThumb} alt=" "  width="100%" height="100%"/>
+                            <h5> Ingredients: </h5>
+                            <h6>{randomMeal.strMeasure1} {randomMeal.strIngredient1}</h6>
+                            <h6>{randomMeal.strMeasure2} {randomMeal.strIngredient2}</h6>
+                            <h6>{randomMeal.strMeasure3} {randomMeal.strIngredient3}</h6>
+                            <h6>{randomMeal.strMeasure4} {randomMeal.strIngredient4}</h6>
+                            <h6>{randomMeal.strMeasure5} {randomMeal.strIngredient5}</h6>
+                            <h6>{randomMeal.strMeasure6} {randomMeal.strIngredient6}</h6>
+                            <h6>{randomMeal.strMeasure7} {randomMeal.strIngredient7}</h6>
+                            <h6>{randomMeal.strMeasure8} {randomMeal.strIngredient8}</h6>
+                            <h6>{randomMeal.strMeasure9} {randomMeal.strIngredient9}</h6>
+                            <h6>{randomMeal.strMeasure10} {randomMeal.strIngredient10}</h6>
+                            <h6>{randomMeal.strMeasure11} {randomMeal.strIngredient11}</h6>
+                            <h6>{randomMeal.strMeasure12} {randomMeal.strIngredient12}</h6>
+                            <h6>{randomMeal.strMeasure13} {randomMeal.strIngredient13}</h6>
+                            <h6>{randomMeal.strMeasure14} {randomMeal.strIngredient14}</h6>
+                            <h6>{randomMeal.strMeasure15} {randomMeal.strIngredient15}</h6>
+                            <h6>{randomMeal.strMeasure16} {randomMeal.strIngredient16}</h6>
+                            <h6>{randomMeal.strMeasure17} {randomMeal.strIngredient17}</h6>
+                            <h6>{randomMeal.strMeasure18} {randomMeal.strIngredient18}</h6>
+                            <h6>{randomMeal.strMeasure19} {randomMeal.strIngredient19}</h6>
+                            <h6>{randomMeal.strMeasure20} {randomMeal.strIngredient20}</h6>
+                            <h6>{randomMeal.strMeasure21} {randomMeal.strIngredient21}</h6>
+                            <h5>Instructions:</h5> 
+                            <h6>{randomMeal.strInstructions}</h6>
+                            </CardBody>
+                        </CardBody>
+                    </Card>
                     </div> 
                 </div> 
                 <div className="col">
                     <h3>Choose a country from the map</h3>
                     <Map />
+                    <Recipe />
                 </div>                
             </div>
                 

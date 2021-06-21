@@ -2,6 +2,7 @@ import React, { useState }  from 'react';
 import  '../App.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import createHistory from 'history/createBrowserHistory';
+import Recipe from './Recipe';
 
 
 const history = createHistory({forceRefresh:true});
@@ -61,7 +62,7 @@ export default function Map() {
                         <Marker key={p.id} position={p.location}>
                             <Popup>
                                 {p.country}
-                                <button style={viewRecipes}>View Recipes</button>
+                                <button style={viewRecipes} onClick={Recipe} >View Recipes</button>   
                             </Popup>
                         </Marker>
                     ))

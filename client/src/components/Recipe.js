@@ -1,55 +1,36 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import {Collapse, Button, CardBody, Card } from 'reactstrap';
 import {CardImg, CardText, CardTitle, CardSubtitle} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import  '../App.css';
-
+import './Recipe.css'
 
 const Recipe = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
 
-    // { props.meals1 && 
-    //     props.meals1.map(m => (
-    //         <tr key={m.meal_name}>
-    //             <td>
-    //                 {m.country_name} {' '}
-    //             </td>
-    //             <td>
-    //                 {m.ingredients} {' '}
-    //             </td>
-    //             <button className="viewButton" onClick={(e) => props.mealsDetailsCb(m.meal_mid)} type="button">View</button>
-    //         </tr>
-    //     ))
-    // }
+   
+    // const [isOpen, setIsOpen] = useState(false);
+    // const toggle = () => setIsOpen(!isOpen);
+
     return (
-
         <div className="recipeTable">
+
          {   
         props.meals1 && 
         props.meals1.map(m => (
         <Card>
         {/* show the image: */}
-        {/* <CardImg src={data.url} alt="Card image cap" height= "600"/> */}
+        <CardImg src={"https://media.wired.com/photos/598e35fb99d76447c4eb1f28/master/pass/phonepicutres-TA.jpg"} 
+        alt=" "/>
         <CardBody>
         {/* shoow the title: */}
         <CardTitle tag="h5">{m.meal_name} </CardTitle>
         {/* show the additional info: */}
         <CardSubtitle tag="h6" className="mb-2 text-muted">{m.mealtype}, {m.meal_time}</CardSubtitle>
-        {/* to get the button working: */}
-        <Button className="basicButton"  onClick={toggle} style={{ marginBottom: '1rem' }}>Ingredients & Method</Button>
-         {/* to geth the button open and close: */}
-        <Collapse isOpen={isOpen}>
-        <Card>
-            <CardBody>
-            <div className = "tags-input">
-            <h3>{m.ingredients}</h3>
-            <Button className="basicButton" onClick={toggle} style={{ marginBottom: '1rem' }}>Close</Button>
-            <Collapse isOpen={isOpen}>
-            </Collapse>
-            </div>
-            </CardBody>
-        </Card>
-        </Collapse>
+            <Breadcrumb tag="nav" listTag="div">
+                <BreadcrumbItem tag="a" href="#" component={m.ingredients} >Ingredients </BreadcrumbItem>
+                <BreadcrumbItem tag="a" href="#" component={m.ingredients} >Preparation </BreadcrumbItem>
+            </Breadcrumb> 
+
         </CardBody>
 
         </Card>
@@ -64,3 +45,22 @@ const Recipe = (props) => {
 
 
 export default Recipe;
+
+
+
+{/* <Breadcrumb tag="nav" listTag="div">
+
+<BreadcrumbItem key={m.ingredients} 
+tag="a" href="#" 
+
+>Ingredients  
+<Link to={m.ingredients} >
+
+</Link>
+</BreadcrumbItem> 
+
+<BreadcrumbItem tag="a" href="#">Preparation
+</BreadcrumbItem>
+{/* <h3>{m.preparation}</h3> */}
+
+// </Breadcrumb> */}
