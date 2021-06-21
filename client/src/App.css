@@ -61,3 +61,15 @@ input {
 ::placeholder {
   margin-left: 2rem;
 }
+
+#mapid {
+  height: 500px;
+}
+
+.MealList {
+  width: 50%;
+}
+
+.randomRecipe {
+  
+}
