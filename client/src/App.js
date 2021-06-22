@@ -8,8 +8,16 @@ import Recipe from './components/Recipe';
 import './App.css';
 import createHistory from 'history/createBrowserHistory';
 
-
 const history = createHistory({forceRefresh:true});   
+
+function Success() {
+  alert("Success!");
+}
+
+function Problem() {
+  alert("Unsuccessful!");
+}
+
 
 function App() {
 
@@ -34,11 +42,14 @@ function App() {
       if (response.ok) {
         let user = await response.json();
         localStorage.setItem('user', JSON.stringify(user));
+        Success();
         history.push('/dashboard');
       } else {
+      Problem();
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }
     } catch (err) {
+      Problem();
       console.log(`Network error: ${err.message}`);
     }
   }
@@ -57,11 +68,14 @@ function App() {
       if (response.ok) {
         let user = await response.json();
         localStorage.setItem('user', JSON.stringify(user));
+        Success();
         history.push('/login');
       } else {
+        Problem();
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }
     } catch (err) {
+      Problem();
       console.log(`Network error: ${err.message}`);
     }
   }
