@@ -10,11 +10,20 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
-app.use(cors());
-app.use(logger('dev'));
+app.use(cors(
+  {
+  origin: ["http://localhost:3000"],
+  methods: ["GET", "POST"],
+  credentials: true,
+  }
+  )
+);
+// app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.urlencoded({
+  extended: true
+}));
 
 
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -25,10 +34,17 @@ app.use('/', indexRouter);
 //express sessions for cookie storage
 const session = require('express-session');
 app.use(session({
+  key: 'cookiename',
   secret: 'secret',
-  resave: true,
-  saveUninitialized: true
-}));
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 60 * 60 * 24,
+  }
+  })
+);
+
+
 
 // Anything that doesn't match the above, send back index.html
 app.get("*", (req, res) => {

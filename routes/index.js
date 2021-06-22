@@ -1,12 +1,8 @@
 var express = require("express");
 var router = express.Router();
-const bodyParser = require("body-parser");
 const db = require("../model/helper");
 const bcrypt = require('bcrypt');
 require("dotenv").config();
-
-
-router.use(bodyParser.json());
 
 
 /* GET home page. */
@@ -14,74 +10,44 @@ router.get("/", (req, res) => {
   res.send({ message: 'Welcome to TasteAdventure!' });
 });
 
-//Login 1
-// router.post('/login', async (req, res, next) => {
-//   let { email, password } = req.body;
-//   let passwordHash = await bcrypt.hash(password, 10);
 
-//   if (email && password)
-//   try {
-//       let sql = (`SELECT * FROM users WHERE email = '${email}'`);
-//       await db(sql);
-//       if (results.data.length == 0 || !(await bcrypt.compare(password, results[0].password))) {
-//           // Username not found
-//           res.status(401).send({ error: 'Login failed' });
-//       } else {
-//         res.send('Login successful');
-//       }
-//   } catch (err) {
-//       next(err);
-//   }
-// });
-
-//Login 2
-// router.post('/login', async (req, res, next) => {
-//   let { email, password } = req.body;
-
-//   // if (email && password)
-//   try {
-//       let results = await db(`SELECT * FROM users WHERE email = '${email}'`);
-//       if (results.data.length === 0) {
-//           // Username not found
-//           res.status(401).send({ error: 'Login failed' });
-//       } else {
-//           let user = results.data[0];  // the user's row/record from the DB
-//           let passwordsEqual = await bcrypt.compare(password, user.password);
-//           if (passwordsEqual) {
-//               // Passwords match
-//               res.send({
-//                   message: 'Login succeeded',
-//               });
-//           } else {
-//               // Passwords don't match
-//               res.status(401).send({ error: 'Login failed' });
-//           }
-//       }
-//   } catch (err) {
-//       next(err);
-//   }
-// });
-
-//Login 3
-router.post('/login', async (req, res) => {
+//Login
+router.post('/login', async (req, res, next) => {
   let { email, password } = req.body;
-  if (email == null) {
-    return res.status(400).send('Cannot find user')
-  }
+
+  if (email && password)
   try {
-
-     let sql =(`SELECT * FROM users WHERE email = '${email}'`);
-      await db(sql);
-         if(await bcrypt.compare(req.body.password, password)) {
-      res.send('Success')
-    } else {
-      res.send('Not Allowed')
-    }
-  } catch {
-    res.status(500).send()
+      let results = await db(`SELECT * FROM users WHERE email = '${email}'`);
+      if (results.data.length === 0) {
+          // Username not found
+          res.status(401).send({ error: 'Login failed' });
+      } else {
+          let user = results.data[0];  // the user's row/record from the DB
+          let passwordsEqual = await bcrypt.compare(password, user.password);
+          if (passwordsEqual) {
+              // Passwords match
+              res.send({
+                  message: 'Login succeeded',
+              });
+          } else {
+              // Passwords don't match
+              res.status(401).send({ error: 'Login failed' });
+          }
+      }
+  } catch (err) {
+      next(err);
   }
-})
+});
 
+
+//login GET
+router.get("/login", (req, res) => {
+  if (req.session.user) {
+    res.send({ loggedIn: true, user: req.session.user });
+  } else {
+    res.send({ loggedIn: false });
+  }
+});
 
 
 //Register

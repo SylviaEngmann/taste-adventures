@@ -21,8 +21,8 @@ function App() {
     getMeals();
   }, []);
 
-  async function login(email, password) {
-    let body = { email, password };
+
+  async function login(body) {
     let options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -33,6 +33,7 @@ function App() {
       let response = await fetch('http://localhost:5000/login', options);
       if (response.ok) {
         let user = await response.json();
+        localStorage.setItem('user', JSON.stringify(user));
         history.push('/dashboard');
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
@@ -41,6 +42,8 @@ function App() {
       console.log(`Network error: ${err.message}`);
     }
   }
+
+
 
   async function register(input) {
     let options = {
