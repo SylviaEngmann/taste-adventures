@@ -21,18 +21,18 @@ function App() {
     getMeals();
   }, []);
 
-  async function login(input) {
+  async function login(email, password) {
+    let body = { email, password };
     let options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input)
+      body: JSON.stringify(body)
     };
 
     try {
       let response = await fetch('http://localhost:5000/login', options);
       if (response.ok) {
         let user = await response.json();
-        localStorage.setItem('user', JSON.stringify(user));
         history.push('/dashboard');
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
@@ -54,7 +54,7 @@ function App() {
       if (response.ok) {
         let user = await response.json();
         localStorage.setItem('user', JSON.stringify(user));
-        history.push('/dashboard');
+        history.push('/login');
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
       }
