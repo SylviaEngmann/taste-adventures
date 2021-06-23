@@ -110,7 +110,6 @@ export default function Dashboard() {
                 <div className="col">
                     <h3>Choose a country from the map</h3>
                     <Map />
-                    <Recipe />
                 </div>                
             </div>
                 

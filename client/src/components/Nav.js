@@ -22,9 +22,6 @@ export default function Nav() {
                     <li>
                         <Link to="/register">REGISTER</Link>
                     </li>
-                    <li>
-                        <Link to="/recipe">RECIPES</Link>
-                    </li>
                 </ul>
             </nav>
         </div>
