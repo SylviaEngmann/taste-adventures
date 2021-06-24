@@ -18,19 +18,56 @@ CREATE TABLE meals (
     meal_name VARCHAR(40) NOT NULL,
     country_name VARCHAR(40) NOT NULL,
     mealtype VARCHAR(20) NOT NULL,
-    ingredients TEXT NOT NULL,
-    preparation TEXT NOT NULL,
+    ingredient1 TEXT(250),
+    ingredient2 TEXT(250),
+    ingredient3 TEXT(250),
+    ingredient4 TEXT(250),
+    ingredient5 TEXT(250),
+    ingredient6 TEXT(250),
+    ingredient7 TEXT(250),
+    ingredient8 TEXT(250),
+    ingredient9 TEXT(250),
+    ingredient10 TEXT(250),
+    ingredient11 TEXT(250),
+    ingredient12 TEXT(250),
+    ingredient13 TEXT(250),
+    ingredient14 TEXT(250),
+    ingredient15 TEXT(250),
+    ingredient16 TEXT(250),
+    ingredient17 TEXT(250),
+    ingredient18 TEXT(250),
+    ingredient20 TEXT(250),
+    preparation1 TEXT(500),
+    preparation2 TEXT(500),
+    preparation3 TEXT(500),
+    preparation4 TEXT(500),
+    preparation5 TEXT(500),
+    preparation6 TEXT(500),
+    preparation7 TEXT(500),
+    preparation8 TEXT(500),
+    preparation9 TEXT(500),
+    preparation10 TEXT(500),
+    preparation11 TEXT(500),
+    preparation12 TEXT(500),
+    preparation13 TEXT(500),
+    preparation14 TEXT(500),
+    preparation15 TEXT(500),
+    preparation16 TEXT(500),
+    preparation17 TEXT(500),
+    preparation18 TEXT(500),
+    preparation19 TEXT(500),
+    preparation20 TEXT(500),
     meal_time TIME NOT NULL
     url VARCHAR(500)
 );
 
--- CREATE TABLE lovedmeals (
---     unique_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
---     userID INT NOT NULL,
---     mealID INT NOT NULL,
---     FOREIGN KEY(userID) REFERENCES users(id),
---     FOREIGN KEY(mealID) REFERENCES meals(mid)
--- );
+CREATE TABLE lovedmeals (
+    unique_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    userID INT NOT NULL,
+    mealID INT NOT NULL,
+    FOREIGN KEY(userID) REFERENCES users(id),
+    FOREIGN KEY(mealID) REFERENCES meals(mid)
+);
 
 -- Insert some test data
 
@@ -57,7 +94,7 @@ VALUES
     'Place 1 1/2 teaspoons of filling on each round of dough. Gently fold the dough over, forming a pocket around the filling. Pinch the edges of the pierogi to seal, then seal again with the tines of a fork.',
     'At this point the pierogi can be frozen for up to 4 weeks, or refrigerated overnight, or cooked in a large stockpot of boiling salted water. Only cook about 10 pierogi at a time, so that they have room to float without sticking. When the pierogi float, they are done. The time will vary depending on if they are fresh or frozen.',
     'Sauté the shallots or onion in the butter in a large skillet until the onion begins to brown. Add the drained pierogi and cook until browned and crisped. Serve hot with additional sour cream, applesauce, or other condiments.',
-    '0', 
+    '00:00:00', 
     'https://www.kingarthurbaking.com/sites/default/files/styles/featured_image_2x/public/recipe_legacy/1750-3-large.jpg?itok=MwEaAU-G'
     );
 
@@ -79,8 +116,70 @@ VALUES
     'Add the beef broth. Bring the stew to a slight boil, reduce heat and cover. Simmer for 1.5 to 2 hours or until the meat can be easily shredded with a fork. If the stew looks like its getting too thick, you can add additional broth or water as necessary.',
     'Mix together the cornstarch and water in a small bowl. Stir until smooth.',
     'Stir the cornstarch mixture into the stew until fully incorporated. Simmer for an additional 10 minutes or until the stew has thickened.',
-    '0', 
+    '00:00:00', 
     'https://whiskedawaykitchen.com/wp-content/uploads/2020/10/polish-style-goulash-3.jpg'
+    );
+
+    --Recipe3
+INSERT INTO meals 
+(meal_name, country_name, mealtype, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, preparation1,  preparation2, preparation3, preparation4, preparation5, preparation6, preparation7, preparation8, preparation9, preparation10, preparation11, meal_time, url)
+VALUES
+    ('Grochowka: Split Pea Soup with Ham Hock', 
+    'Poland', 
+    'Lunch', 
+    '500g ham hock, fresh or smoked', '3-4 bay leaves, optional', '4-5 allspice berries, optional ', '280-300 g smoked bacon in a slab, unsliced ', '300 g split peas, dried, yellow ', '300 g whole peas, dried, yellow', '2 medium carrots', '1 parsley root', '100g celery', '2 medium potatoes', '1 tsp marjoram', 'salt and pepper to taste',
+    'Place the ham hock in a large cooking pot. Pour in enough water to cover the knuckle completely. ',
+    'Add in a few bay leaves and allspice berries. Cook on a low-medium heat, partially covering with a lid. If the water evaporates too quickly in the process, and it does not cover the meat anymore - pour in some H2O. Cook until the meat is soft and falls off the bone. The exact cooking time will depend on the size of the hock, meat-to-bone ratio, the size of the pot… so you’ll have to test its doneness empirically,just poke it with a fork. In my case, it took 2.5 hours.',
+    'Fish the ham hock out, leave it on a plate to chill. Once the hock is cool enough to handle, remove the meat from the bones, shred, and set aside to stir back into the soup at the very end, discard the bones and any skin.', 
+    'Peel the carrots, parsley and celery root, chop them into small cubes. Add the chopped veggies into the broth. Optional- Cut the smoked skin off the bacon slab and add it into the cooking pot.',
+    'Chop the bacon slab into cubes and fry them in a frying pan. There is no need to add any more fat for frying - enough should render from the bacon itself. When the bacon cubes turn lightly golden, add them into the cooking pot, laving the excess fat behind.',
+    'Add split peas and whole peas to the broth. Cook for 40-60 minutes on medium-low, stirring occasionally. If you feel like the soup gets too thick, add some water or chicken broth.',
+    'When the time is up, add the potatoes: peel them, chop into cubes and drop into the soup.',
+    'Season with marjoram, salt and pepper. Check the flavour, add more seasoning if needed. Cook for another 20 minutes, until potatoes turn soft.',
+    'We are nearly done. Split peas turned mushy, thickening the soup. Whole peas softened, but remained whole.',
+    'Retrieve the bacon skin from the pot, discard it. Add in shredded ham hock meat and cook the soup for another 3-5 minutes to warm the meat up.',
+    'Serve hot with a slice of rye bread.',
+    '00:00:00', 
+    'https://www.polonist.com/wp-content/uploads/2021/02/Grochowka-1-1600x2400-1.jpg'
+    );
+
+    --Recipe4
+INSERT INTO meals 
+(meal_name, country_name, mealtype, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, preparation1,  preparation2, preparation3, preparation4, preparation5, meal_time, url)
+VALUES
+    ('Bigos- Polish cabbage stew', 
+    'Poland', 
+    'Dinner', 
+    'In a large pot heat up 3 tablespoons of the oil, add the caraway seeds, juniper and allspice berries, bay leaf and onion and gently fry for 3 minutes stirring often',
+    'Push the onion mixture to the side and add the chicken thighs. Fry for 2 minutes on each side.',
+    'Add the sauerkraut, cabbage, prunes, tomato paste, mushrooms, marjoram, paprika, pepper to taste and half of the water and stir to combine. Close the lid, bring to the boil then simmer for 1 hour.',
+    'In a frying pan heat up the remaining oil -1-2 tablespoons- and fry the chopped sausage until crispy stirring often. Add the sausage -not the fat- into the stew and continue cooking gently for another hour. Add a little more water at this point if you like.', 
+    'Remove the chicken from the pot, separate the meat from the bone and put the meat pieces back into the pot. Serve with mashed potatoes or rye/pumpernickel bread.',
+    '00:00:00', 
+    'https://i1.wp.com/www.everydayhealthyrecipes.com/wp-content/uploads/2019/10/Polish-Bigos.jpg?resize=720%2C658&ssl=1'
+    );
+
+    --Recipe5
+INSERT INTO meals 
+(meal_name, country_name, mealtype, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, preparation1,  preparation2, preparation3, preparation4, preparation5, preparation6, preparation7, preparation8, preparation9, preparation10, preparation11, preparation12, preparation13, preparation14, meal_time, url)
+VALUES
+    ('Grochowka: Split Pea Soup with Ham Hock', 
+    'Poland', 
+    'Lunch', 
+    '500g ham hock, fresh or smoked', '3-4 bay leaves, optional', '4-5 allspice berries, optional ', '280-300 g smoked bacon in a slab, unsliced ', '300 g split peas, dried, yellow ', '300 g whole peas, dried, yellow', '2 medium carrots', '1 parsley root', '100g celery', '2 medium potatoes', '1 tsp marjoram', 'salt and pepper to taste',
+    'Place the ham hock in a large cooking pot. Pour in enough water to cover the knuckle completely. ',
+    'Add in a few bay leaves and allspice berries. Cook on a low-medium heat, partially covering with a lid. If the water evaporates too quickly in the process, and it does not cover the meat anymore - pour in some H2O. Cook until the meat is soft and falls off the bone. The exact cooking time will depend on the size of the hock, meat-to-bone ratio, the size of the pot… so you’ll have to test its doneness empirically,just poke it with a fork. In my case, it took 2.5 hours.',
+    'Fish the ham hock out, leave it on a plate to chill. Once the hock is cool enough to handle, remove the meat from the bones, shred, and set aside to stir back into the soup at the very end, discard the bones and any skin.', 
+    'Peel the carrots, parsley and celery root, chop them into small cubes. Add the chopped veggies into the broth. Optional- Cut the smoked skin off the bacon slab and add it into the cooking pot.',
+    'Chop the bacon slab into cubes and fry them in a frying pan. There is no need to add any more fat for frying - enough should render from the bacon itself. When the bacon cubes turn lightly golden, add them into the cooking pot, laving the excess fat behind.',
+    'Add split peas and whole peas to the broth. Cook for 40-60 minutes on medium-low, stirring occasionally. If you feel like the soup gets too thick, add some water or chicken broth.',
+    'When the time is up, add the potatoes: peel them, chop into cubes and drop into the soup.',
+    'Season with marjoram, salt and pepper. Check the flavour, add more seasoning if needed. Cook for another 20 minutes, until potatoes turn soft.',
+    'We are nearly done. Split peas turned mushy, thickening the soup. Whole peas softened, but remained whole.',
+    'Retrieve the bacon skin from the pot, discard it. Add in shredded ham hock meat and cook the soup for another 3-5 minutes to warm the meat up.',
+    'Serve hot with a slice of rye bread.',
+    '00:00:00', 
+    'https://www.polonist.com/wp-content/uploads/2021/02/Grochowka-1-1600x2400-1.jpg'
     );
 
 
