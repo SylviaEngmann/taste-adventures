@@ -2,12 +2,23 @@ var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const { SECRET_KEY } = require('../config');
+const { ensureUserLoggedIn } = require('../middleware/guards');
 require("dotenv").config();
 
 
 /* GET home page. */
 router.get("/", (req, res) => {
   res.send({ message: 'Welcome to TasteAdventure!' });
+});
+
+/**
+ * GET /profile
+ **/
+
+ router.get('/profile', ensureUserLoggedIn, function(req, res, next) {
+  res.send({ message: 'Here is your Members Only content from the server...' });
 });
 
 
@@ -26,17 +37,24 @@ router.post('/login', async (req, res, next) => {
           let passwordsEqual = await bcrypt.compare(password, user.password);
           if (passwordsEqual) {
               // Passwords match
-              res.send({
-                  message: 'Login succeeded',
-              });
-          } else {
-              // Passwords don't match
-              res.status(401).send({ error: 'Login failed' });
-          }
-      }
-  } catch (err) {
-      next(err);
-  }
+                let payload = { userId: user.id };
+                // Create token containing user ID
+                let token = jwt.sign(payload, SECRET_KEY);
+                // Also return user (without password)
+                delete user.password;
+                res.send({
+                    message: 'Login succeeded',
+                    token: token,
+                    user: user
+                });
+            } else {
+                // Passwords don't match
+                res.status(401).send({ error: 'Login failed' });
+            }
+        }
+    } catch (err) {
+        next(err);
+    }
 });
 
 
@@ -55,7 +73,6 @@ router.post("/register", async (req, res) => {
   let { email, password, firstname, lastname } = req.body;
   let passwordHash = await bcrypt.hash(password, 10);
     
-    if (email && password && firstname && lastname)
     try {
           let sql =(`
               INSERT INTO users (email, password, firstname, lastname)
@@ -68,16 +85,36 @@ router.post("/register", async (req, res) => {
         }
     });
 
-//return all registered users
-router.get("/users", async (req, res) => {
-  try {
-      let result = await db('SELECT * FROM users');
-      let users = result.data;
-      res.send(users);
-  } catch (err) {
-      res.status(500).send({error: err.message});
-  }
-});
+
+//GET lovedmeals for user
+// router.get("/profile/:id", async (req, res) => {
+//   let userId = req.params.id;
+
+//   try {
+//       let result = await db(`SELECT`); //select loved meals from a specific user and display meal info
+//       let userMeals = result.data;
+//       if (userMeals.length === 0) {
+//           res.status(404).send({ error: 'Uh Oh! You have not saved any recipes.' });
+//       }
+//       else {
+//           res.send(userMeals);
+//       }
+//   } catch (err) {
+//       res.status(500).send({error: err.message});
+//   }
+// });
+
+
+// //return all registered users
+// router.get("/users", async (req, res) => {
+//   try {
+//       let result = await db('SELECT * FROM users');
+//       let users = result.data;
+//       res.send(users);
+//   } catch (err) {
+//       res.status(500).send({error: err.message});
+//   }
+// });
 
 
 //GET all meals
@@ -94,11 +131,11 @@ router.get("/meals", async (req, res) => {
 //GET meal from specific country
 // The country name will be defined using the MAP API?
 // 1 fetch from the MAP API and another from our database to display recipes from country
-router.get("/meals/country_name", async (req, res) => {
+router.get("/:country_name", async (req, res) => {
   try {
-      let result = await db(`'SELECT * FROM meals WHERE country_name = '${country_name}'`);
+      let result = await db(`SELECT * FROM meals WHERE country_name = ${country_name};`);
       let meals = result.data;
-      res.send(meals);
+      res.send(meals[0]);
   } catch (err) {
       res.status(500).send({error: err.message});
   }
@@ -110,10 +147,10 @@ router.get("/meals/country_name", async (req, res) => {
 
 router.get("/getlovedmeals", async (req, res) => {
   try {
-  let result = await db(`'SELECT * FROM meals WHERE
+  let result = await db(`SELECT * FROM meals WHERE
 JOIN lovedmeals ON lovedmeals.mealID = meals.mid AND
 JOIN users ON users.id = lovedmeals.userID AND
-users.id = ${id}'`);
+users.id = ${id}`);
 let getlovedmeals = result.data;
 res.send(getlovedmeals);
 } catch (err) {

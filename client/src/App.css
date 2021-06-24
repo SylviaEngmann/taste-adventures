@@ -7,7 +7,7 @@ nav ul li{
   display: inline;
   padding: 8px;
   text-decoration: none;
-  color: #847b6b !important;
+  color: #181817 !important;
 }
 
 .backgroundImage {
@@ -21,6 +21,12 @@ nav ul li{
 
 .sloganPosition {
   margin-top: 100px;
+}
+
+.slogan {
+  height: auto;
+  width: 400px;
+  text-align: left;
 }
 
 .generic-button {

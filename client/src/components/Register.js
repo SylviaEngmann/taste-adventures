@@ -1,5 +1,4 @@
 import React, { useState }  from 'react';
-import Nav from './Nav';
 import Background from '../images/undraw_adventure_4hum.svg'
 
 import  '../App.css';
@@ -40,19 +39,12 @@ export default function Register(props) {
     
       const handleSubmit = (event) => {
         event.preventDefault();
-        props.submitCb(formData);
+        props.onSubmit(formData);
         setFormData(EmptyFormData);
       }
 
     return (
         <div>
-            <div className="row">
-                <div className="name-div">
-                    <h1 style={name}>TASTE ADVENTURE</h1>
-                    <p style={slogan}>Foodies around the world</p>
-                </div>
-                <Nav />
-            </div>
         <div className="row">
             <div className="col">
                 <div className="formDiv">
@@ -61,6 +53,7 @@ export default function Register(props) {
                                 <input 
                                     type="text"
                                     name="firstname"
+                                    required
                                     placeholder="First Name"
                                     value={formData.firstname}
                                     onChange={handleChange} 
@@ -70,6 +63,7 @@ export default function Register(props) {
                                 <input 
                                     type="text"
                                     name="lastname"
+                                    required
                                     placeholder="Last Name"
                                     value={formData.lastname}
                                     onChange={handleChange} 
@@ -79,6 +73,7 @@ export default function Register(props) {
                                 <input 
                                     type="text"
                                     name="email"
+                                    required
                                     placeholder="Email"
                                     value={formData.email}
                                     onChange={handleChange} 
@@ -88,6 +83,7 @@ export default function Register(props) {
                                 <input 
                                     type="password"
                                     name="password"
+                                    required
                                     placeholder="Password"
                                     value={formData.password}
                                     onChange={handleChange} 
