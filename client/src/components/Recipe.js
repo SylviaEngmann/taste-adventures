@@ -121,6 +121,20 @@ url:  'https://www.polonist.com/wp-content/uploads/2021/02/Grochowka-1-1600x2400
         background: "#847b6b"
     };
 
+    const name = {
+        color: "#847b6b",
+        fontSize: "25px",
+        textAlign: "center",
+        marginTop: "2rem"
+    }
+    const slogan = {
+        color: "#F9A826",
+        fontSize: "15px",
+        fontFamily: "Parisienne !important",
+        textAlign: "center",
+        marginTop: "-0.5rem"
+      };
+
     const heading ={
         color: "#F9A826",
         fontSize: "40px",
@@ -134,7 +148,6 @@ url:  'https://www.polonist.com/wp-content/uploads/2021/02/Grochowka-1-1600x2400
     
 // NEEDED FOR ALL VERSIONS :
     const [modal, setModal] = useState(false);
-    const [modalB, setModalB] = useState(false);
     const [test, setTest] = useState();
     const toggle = () => setModal(!modal);
 
@@ -158,18 +171,13 @@ url:  'https://www.polonist.com/wp-content/uploads/2021/02/Grochowka-1-1600x2400
       setCloseAll(true);
     }
 
-    const triggerToggle = () => {
-        setModalB (!modalB)
-    }
-    
-    const image = {
-        height: "400px",
-        
-    }
-
     return (
 
     <div>
+        <div className="row">
+        <div className="col">
+        </div> 
+    </div>
     <div>
     <h2 style={heading}>Welcome and check out those amazing recipes!</h2>
     </div>
@@ -181,38 +189,19 @@ url:  'https://www.polonist.com/wp-content/uploads/2021/02/Grochowka-1-1600x2400
         <Card>
         {/* show the image: */}
         <CardImg src={m.url} 
-        style={image}
         />
         <CardBody>
         {/* shoow the title: */}
         <CardTitle tag="h5"  >{m.meal_name} </CardTitle>
         {/* show the additional info: */}
         <CardSubtitle tag="h6" className="mb-2 text-muted"  >{m.mealtype}, {m.meal_time}</CardSubtitle>
-        <CardSubtitle tag="h6" className="mb-2 text-muted"  >Ingredients: 
-        <ul>
-             <ul>{m.ingredient1}</ul>
-             <ul>{m.ingredient2}</ul>
-             <ul>{m.ingredient3}</ul>
-             <ul>{m.ingredient4}</ul>
-             <ul>{m.ingredient5}</ul>
-             <ul>{m.ingredient6}</ul>
-             <ul>{m.ingredient7}</ul>
-             <ul>{m.ingredient8}</ul>
-             <ul>{m.ingredient9}</ul>
-             <ul>{m.ingredient10}</ul>
-             <ul>{m.ingredient11}</ul>
-             <ul>{m.ingredient12}</ul>
-             <ul>{m.ingredient13}</ul>
-             <ul>{m.ingredient14}</ul>
-        </ul>
-        </CardSubtitle>
         
         {/* Modals: */}
         <div>
 
         {/* VERSION 2: */}
 
-        {/* <Button style={button} onClick={toggle}>{buttonLabel} Ingredients & Preparation</Button>
+        <Button style={button} onClick={toggle}>{buttonLabel} Ingredients & Preparation</Button>
         <Modal isOpen={modal} index={m.ingredient1} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>Ingredients</ModalHeader>
         <ModalBody index={m.ingredient1} > {m.ingredient1}
@@ -231,49 +220,19 @@ url:  'https://www.polonist.com/wp-content/uploads/2021/02/Grochowka-1-1600x2400
         <ModalFooter>
           <Button color="secondary" onClick={toggle}>Cancel</Button>
         </ModalFooter>
-      </Modal>  */}
+      </Modal> 
 
         {/* VERSION 3: */}
 
-            <Button style={button} onClick={toggle}>Preparation</Button>
-            <Modal isOpen={modal} toggle={triggerToggle} className="ingredients" >
-            <ModalHeader toggle={toggle}>Preparation</ModalHeader>
-            <ModalBody > {m.preparation1} 
-            <br></br>
-            {m.preparation2}  <br></br>
-            <br></br>
-            {m.preparation3}  <br></br>
-            <br></br>
-            {m.preparation4} <br></br>
-            <br></br>
-            {m.preparation5}  <br></br>
-            <br></br>
-            {m.preparation6}  <br></br>
-            <br></br>
-            {m.preparation7}  <br></br>
-            <br></br>
-            {m.preparation8}  <br></br>
-            <br></br>
-            {m.preparation9}  <br></br>
-            <br></br>
-            {m.preparation10}  <br></br>
-            <br></br>
-            {m.preparation11}  <br></br>
-            <br></br>
-            {m.preparation12}  <br></br>
-            <br></br>
-            {m.preparation13}  <br></br>
-            <br></br>
-            {m.preparation14}  <br></br>
-            <br></br>
-            {m.preparation15}  <br></br>
-            <br></br>
-            {m.preparation16}
-            </ModalBody>
+            {/* <Button style={button} onClick={toggle}>Ingredients & Preparation</Button>
+            <Modal isOpen={modal} toggle={toggle} className="ingredients" >
+            <ModalHeader toggle={toggle}>Ingredients</ModalHeader>
+            <ModalBody > {m.ingredient1} {m.ingredient2}  </ModalBody>
+            <ModalBody > {m.preparation1} {m.preparation2}  </ModalBody>
             <ModalFooter>
                 <Button color="#F9A826" onClick={toggle}>Close</Button>
             </ModalFooter>
-            </Modal>
+            </Modal> */}
 
         {/* VERSION 4: */}
 
@@ -286,6 +245,7 @@ url:  'https://www.polonist.com/wp-content/uploads/2021/02/Grochowka-1-1600x2400
                 <Button color="#F9A826" onClick={toggle}>Close</Button>
             </ModalFooter>
             </Modal>
+
             <Button style={button} onClick={toggle}> Preparation</Button>
             <Modal isOpen={modal} toggle={toggle} className="preparation" >
             <ModalHeader toggle={toggle}>Preparation</ModalHeader>
