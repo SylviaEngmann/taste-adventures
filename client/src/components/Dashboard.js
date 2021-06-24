@@ -1,5 +1,4 @@
 import React, { useEffect, useState }  from 'react';
-import Nav from './Nav';
 import Map from './Map';
 import Recipe from './Recipe';
 import {Collapse, Button, CardBody, Card } from 'reactstrap';
@@ -61,11 +60,6 @@ export default function Dashboard() {
         <div>
             <div className="row">
                 <div className="col">
-                    <h1 style={name}>TASTE ADVENTURE</h1>
-                    <p style={slogan}>Foodies around the world</p>
-                </div>
-                <div className="col">
-                    <Nav />
                 </div> 
             </div>
             <div className="row" style={page}>

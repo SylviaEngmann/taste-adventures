@@ -19,48 +19,60 @@ const slogan = {
     marginTop: "-0.5rem"
   };
 
-const EmptyFormData = {
-    email: '',
-    password: ''
-};
-
 export default function Login(props) {
 
-    const [formData, setFormData] = useState(EmptyFormData);
+    // const [formData, setFormData] = useState(EmptyFormData);
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
+    // const handleChange = (event) => {
+    //     const { name, value } = event.target;
 
-        let newFormData = {...formData};  
-        newFormData[name] = value;  
-        setFormData(data => newFormData);  
-      }
+    //     let newFormData = {...formData};  
+    //     newFormData[name] = value;  
+    //     setFormData(data => newFormData);  
+    //   }
     
-      const handleSubmit = (event) => {
+    //   const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     props.submitCb(formData);
+    //     setFormData(EmptyFormData);
+    //   }
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleChange(event) {
+        let { name, value } = event.target;
+        switch (name) {
+            case 'email':
+                setEmail(value);
+                break;
+            case 'password':
+                setPassword(value);
+                break;
+            default:
+                break;
+        }
+    }
+
+    function handleSubmit(event) {
         event.preventDefault();
-        props.submitCb(formData);
-        setFormData(EmptyFormData);
-      }
+        props.onSubmit(email, password);
+    }
 
     return (
         <div>
-            <div className="row">
-                <div className="name-div">
-                    <h1 style={name}>TASTE ADVENTURE</h1>
-                    <p style={slogan}>Foodies around the world</p>
-                </div>
-                <Nav />
-            </div>
         <div className="row">
             <div className="col">
                 <div className="formDiv">
+
                     <form onSubmit={handleSubmit}>
                         <div className="my-1">                      
                                 <input 
                                     type="text"
                                     name="email"
+                                    required
                                     placeholder="Email"
-                                    value={formData.email}
+                                    value={email}
                                     onChange={handleChange} 
                                 /> 
                         </div>
@@ -68,8 +80,9 @@ export default function Login(props) {
                                 <input 
                                     type="password"
                                     name="password"
+                                    required
                                     placeholder="Password"
-                                    value={formData.password}
+                                    value={password}
                                     onChange={handleChange} 
                                 />
                         </div>

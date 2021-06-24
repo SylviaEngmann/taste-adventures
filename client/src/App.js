@@ -1,11 +1,19 @@
 import React, {useState,useEffect} from 'react';
-import { Switch, Route, Router } from 'react-router-dom';
+import { Switch, Route, Router, useHistory } from 'react-router-dom';
+import './App.css';
+
+import Local from './helpers/Local';
+import Api from './helpers/Api';
+
+import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
 import Recipe from './components/Recipe';
-import './App.css';
+import Profile from './components/Profile';
+import Nav from './components/Nav';
+
 import createHistory from 'history/createBrowserHistory';
 
 const history = createHistory({forceRefresh:true});   
@@ -18,9 +26,10 @@ function Problem() {
   alert("Unsuccessful!");
 }
 
-
 function App() {
-
+  const [user, setUser] = useState(Local.getUser());
+  const [loginErrorMsg, setLoginErrorMsg] = useState('');
+  const history = useHistory();
   let [meals, setMeals] = useState([]);
 
   // ------added by me:
@@ -28,32 +37,6 @@ function App() {
   useEffect(() => {
     getMeals();
   }, []);
-
-
-  async function login(body) {
-    let options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    };
-
-    try {
-      let response = await fetch('http://localhost:5000/login', options);
-      if (response.ok) {
-        let user = await response.json();
-        localStorage.setItem('user', JSON.stringify(user));
-        Success();
-        history.push('/dashboard');
-      } else {
-      Problem();
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
-    } catch (err) {
-      Problem();
-      console.log(`Network error: ${err.message}`);
-    }
-  }
-
 
 
   async function register(input) {
@@ -79,6 +62,30 @@ function App() {
       console.log(`Network error: ${err.message}`);
     }
   }
+
+
+
+  async function doLogin(email, password) {
+    let response = await Api.loginUser(email, password);
+    if (response.ok) {
+        Local.saveUserInfo(response.data.token, response.data.user);
+        setUser(response.data.user);
+        setLoginErrorMsg('');
+        Success();
+        history.push('/dashboard');
+    } else {
+        setLoginErrorMsg('Login failed');
+        Problem();
+    }
+}
+
+function doLogout() {
+    Local.removeUserInfo();
+    setUser(null);
+    history.push('/');
+}
+
+
 
   async function getMeals(){
     try {
@@ -129,21 +136,33 @@ async function deleteMeal(mid) {
 
   return (
     <div className="container-fluid">
+      <Nav user={user} onLogout={doLogout} />
+<div>
       <Router history={history}>
         <Switch>
           <Route exact path="/">
             < Home/>
           </Route>
+
+          <AuthenticatedRoute path="/users/:userId" exact>
+              <Profile />
+          </AuthenticatedRoute>
+
           <Route path="/login">
-            < Login submitCb={login}/>
+            <Login 
+              onSubmit={(u, p) => doLogin(u, p)} 
+              error={loginErrorMsg} />
           </Route>
+
           <Route path="/register">
-            < Register submitCb={register}/>
+            < Register onSubmit={register}/>
           </Route>
+
           <Route path="/dashboard">
             {/* < Dashboard meals2={meals}/> */}
-            < Dashboard/>
-          </Route>
+          < Dashboard/>
+
+            </Route>
           <Route path="/recipe">
           {/* new variable which is telling insdie comp recipe, {your hook (meals)}
           storing hook meals inside variable - meals1*/}
@@ -164,7 +183,7 @@ async function deleteMeal(mid) {
                 }
         </Switch>
       </Router>
-    </div>
+    </div></div>
   );
 }
 
