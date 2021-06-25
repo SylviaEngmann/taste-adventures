@@ -54,7 +54,7 @@ CREATE TABLE meals (
     preparation18 TEXT(500),
     preparation19 TEXT(500),
     preparation20 TEXT(500),
-    meal_time TIME NOT NULL
+    meal_time TIME NOT NULL,
     url VARCHAR(500)
 );
 
