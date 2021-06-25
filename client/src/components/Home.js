@@ -1,6 +1,5 @@
 import React, { useState }  from 'react';
 import Background from '../images/undraw_adventure_4hum.svg'
-import Slogan from './Slogan';
 import  '../App.css';
 import createHistory from 'history/createBrowserHistory';
 

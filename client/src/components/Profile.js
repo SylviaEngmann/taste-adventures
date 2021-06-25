@@ -1,79 +1,99 @@
 import React, { useEffect, useState }  from 'react';
 import { useParams } from 'react-router-dom';
+import { Button, CardBody, Card } from 'reactstrap';
+import {CardImg,  CardTitle, CardSubtitle} from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import Local from '../helpers/Local';
 import Api from '../helpers/Api';
-import Nav from './Nav';
 import  '../App.css';
 
-const name = {
-    color: "#847b6b",
-    fontSize: "25px",
-    textAlign: "center",
-    marginTop: "2rem"
+
+  const pic ={
+    height: "auto",
+    width: "150px"
 }
-const slogan = {
-    color: "#F9A826",
-    fontSize: "15px",
-    fontFamily: "Parisienne !important",
-    textAlign: "center",
-    marginTop: "-0.5rem"
-  };
 
 
 
-  function Profile (props) {
-    const [user, setUser] = useState(null);
+  function Profile(props) {
+    const [meals, setLovedMeal] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
-    let { userId } = useParams();
+    let userID = Local.getUserId();
+
 
     useEffect(() => {
-        async function fetchProfile() {
-            let response = await Api.getUser(userId);
+        async function fetchMemberMsg() {
+            // Get "Members Only" message for authenticated users
+            let response = await Api.getContent('/lovedmeals/' +userID);
+            console.log(response);
             if (response.ok) {
-                setUser(response.data);
+                setLovedMeal(response.data);
                 setErrorMsg('');
             } else {
-                setUser(null);
+                setLovedMeal('');
                 setErrorMsg(response.error);
             }
         }
-        fetchProfile();
-    }, [userId]);
+        fetchMemberMsg();
+    }, []);
 
     if (errorMsg) {
         return <h2 style={{ color: 'red' }}>{errorMsg}</h2>
     }
 
-    if (!user) {
+    if (!meals) {
         return <h2>Loading...</h2>;
     }
 
-    
-  //   async function getLovedMeals () {
-
-  //     try {
-  //         let response = await fetch(`http://localhost:5000/getlovedmeals/${id}`);
-  //         if (response.ok) {
-  //         let lovedMeal = await response.json();
-  //         setLovedMeal(lovedMeal);
-  //         console.log(lovedMeal);
-  //         } else {
-  //         console.log(`Server error: ${response.status} ${response.statusText}`);
-  //         }
-  //     } catch (err) {
-  //         console.log(`Network error: ${err.message}`);
-  //     }
-  // }
-
     return (
-        <div className="Profile">
-            <h1>Profile View</h1>
-            Hello {user.firstname}!<br />
-            <p></p>
-            <div>
-            Here is your list of saved recipes!
-            </div>
-        </div>
-    );
+        <div className="MembersOnlyView">
+                      {meals &&
+                    meals.map(m => (
+
+
+                        <Card>
+                        {/* show the image: */}
+                        <CardImg src={m.url} 
+                        style={pic}
+                        />
+                        <CardBody>
+                        {/* shoow the title: */}
+                        <CardTitle tag="h5"  >{m.meal_name} </CardTitle>
+                        {/* show the additional info: */}
+                        <CardSubtitle tag="h6" className="mb-2 text-muted"  >{m.mealtype}, {m.meal_time}</CardSubtitle>
+                        <CardSubtitle tag="h6" className="mb-2 text-muted"  >Ingredients: <br></br>
+                        {m.ingredient1}<br></br>
+                        {m.ingredient3}<br></br>
+                        {m.ingredient4}<br></br>
+                        {m.ingredient5}<br></br>
+                        {m.ingredient6}<br></br>
+                        {m.ingredient7}<br></br>
+                        {m.ingredient8}<br></br>
+                        {m.ingredient9}<br></br>
+                        {m.ingredient10}<br></br>
+                        {m.ingredient11}<br></br>
+                        {m.ingredient12}<br></br>
+                        </CardSubtitle>
+                        {/* <tr key={m.meal_name}>
+                            <td>
+                                {m.country_name} {' '}
+                            </td>
+                            <td>
+                                {m.ingredients} {' '}
+                            </td>
+                            <td>
+                                <img src = {m.url}></img>{' '}
+                            </td>
+                        </tr>
+                    )) */}
+                {/* } */}
+        {/* </div> */}
+        </CardBody>
+        </Card>
+        ))
+    }
+    </div>
+    )
 }
 
 

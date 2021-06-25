@@ -45,11 +45,6 @@ function Nav(props) {
                 </li>
             </ul>
 
-            <ul className="navbar-nav">
-                <li className="nav-item">
-                    <NavLink className="nav-link" activeClassName="active" to="/register" exact>Register</NavLink>
-                </li>
-                </ul>
 
         {
             props.user
@@ -67,12 +62,19 @@ function Nav(props) {
                     )
                 :
                     (
-                        <ul className="navbar-nav">
+                       <><ul className="navbar-nav">
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/login">Login</NavLink>
                             </li>
                         </ul>
-                    )
+                    
+                     <ul className="navbar-nav">
+                        <li className="nav-item">
+                          <NavLink className="nav-link" activeClassName="active" to="/register" exact>Register</NavLink>
+                     </li>
+                        </ul></> 
+
+    )
                     
         }
     </nav>
