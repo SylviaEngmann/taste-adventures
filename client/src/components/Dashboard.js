@@ -1,7 +1,7 @@
 import React, { useEffect, useState }  from 'react';
 import Map from './Map';
 import Recipe from './Recipe';
-import {Collapse, Button, CardBody, Card } from 'reactstrap';
+import {Collapse, Button, CardBody, Card, ButtonToggle } from 'reactstrap';
 import {CardImg, CardText, CardTitle, CardSubtitle} from 'reactstrap';
 import  '../App.css';
 import createHistory from 'history/createBrowserHistory';
@@ -70,6 +70,7 @@ export default function Dashboard() {
     let [randomMeal, setRandomRecipe] = useState({});
     let [countryMeals, setCountryMeals] = useState([]);
     const [countries, setCountries] = useState([]);
+    const [modal, setModal] = useState(false);
 
 
     useEffect(() => {
@@ -79,6 +80,8 @@ export default function Dashboard() {
       function setMapPlaces(){
         setCountries(mapPlaces);
       }
+
+      const toggle = () => setModal(!modal);
 
     async function randomRecipe () {
 
@@ -122,6 +125,7 @@ export default function Dashboard() {
                 <div className="col" style={randMeal}>
                     <h3><b>Option 1: </b><p>Pick a random recipe!</p></h3>
                     <button className="generic-button" onClick={randomRecipe}>Get Random Recipe</button>
+                    <button className="lovebutton" onClick={toggle}>Like! ❤️</button>
 
                     <div className="randomRecipe">                    
                     { randomMeal.strMeal &&
