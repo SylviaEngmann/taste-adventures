@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require('../config');
 const { ensureUserLoggedIn } = require('../middleware/guards');
+const { JSONCookie } = require("cookie-parser");
 require("dotenv").config();
 
 
@@ -117,7 +118,7 @@ router.post("/register", async (req, res) => {
 // });
 
 
-//GET all meals
+// GET all meals
 router.get("/meals", async (req, res) => {
   try {
       let result = await db('SELECT * FROM meals');
@@ -147,18 +148,28 @@ router.get("/meals/:country_name", async (req, res) => {
 // JOIN 
 // This needs to be tested once we get frontend up and running
 
-router.get("/getlovedmeals", async (req, res) => {
+router.get('/lovedmeals/:userID', ensureUserLoggedIn, async (req, res) => {
+  // let id = req.params.id;
+  let {userID} = req.params;
   try {
-  let result = await db(`SELECT * FROM meals WHERE
-JOIN lovedmeals ON lovedmeals.mealID = meals.mid AND
-JOIN users ON users.id = lovedmeals.userID AND
-users.id = ${id}`);
+  let result = await db(`
+  SELECT * FROM meals as m
+  INNER JOIN lovedmeals as lm
+  ON lm.mealID = m.mid
+  INNER JOIN users as u
+  ON u.id = lm.userID
+  WHERE u.id = ${userID}`);
 let getlovedmeals = result.data;
 res.send(getlovedmeals);
 } catch (err) {
 res.status(500).send({error: err.message});
   }
 });
+
+// `SELECT * FROM meals WHERE
+// JOIN lovedmeals ON lovedmeals.mealID = meals.mid AND
+// JOIN users ON users.id = lovedmeals.userID AND
+// users.id = ${id}`
 
 
 //POST lovedmeals for user

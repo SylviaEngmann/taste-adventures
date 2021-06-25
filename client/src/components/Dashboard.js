@@ -27,7 +27,10 @@ const mealImg = {
 };
 
 const randMeal = {
-    textAlign: "center"
+    // textAlign: "center",
+    fontFamily: "Parisienne !important",
+    color: "#606060"
+
 };
 
 const page = {
@@ -101,7 +104,7 @@ export default function Dashboard() {
 
     async function getCountryMeals(country_name){
         try {
-          let response = await fetch('http://localhost:5000/meals/');
+          let response = await fetch('http://localhost:5000/meals');
           if(response.ok){
             let countryMeals = await response.json();
             setCountryMeals(countryMeals);
@@ -122,13 +125,15 @@ export default function Dashboard() {
                 </div> 
             </div>
             <div className="row" style={page}>
-                <div className="col" style={randMeal}>
-                    <h3><b>Option 1: </b><p>Pick a random recipe!</p></h3>
+                <div className="col" style={randMeal}><center>
+                    <h3><b> Option 1: </b><p>Pick a random recipe!</p></h3>
                     <button className="generic-button" onClick={randomRecipe}>Get Random Recipe</button>
                     <button className="lovebutton" onClick={toggle}>Like! ❤️</button>
 
                     <div className="randomRecipe">                    
                     { randomMeal.strMeal &&
+                    
+                    
                     <Card>
                         <CardBody>
                             <CardTitle tag="h5">{randomMeal.strMeal}</CardTitle>
@@ -163,10 +168,10 @@ export default function Dashboard() {
                         </CardBody>
                     </Card>
                     }
-                    </div> 
-
+                    </div>
+                    </center>
                 </div> 
-                <div className="col">
+                <div className="col" style={randMeal}>
                     <h3><b>Option 2: </b><p>Choose a country from the map</p></h3>
                     <Map 
                     countries={countries}

@@ -145,9 +145,10 @@ async function deleteMeal(mid) {
             < Home/>
           </Route>
 
-          <AuthenticatedRoute path="/users/:userId" exact>
-              <Profile />
-          </AuthenticatedRoute>
+         
+          <AuthenticatedRoute path="/users/:userID" exact>
+            <Profile />
+         </AuthenticatedRoute>
 
           <Route path="/login">
             <Login 
@@ -176,6 +177,19 @@ async function deleteMeal(mid) {
             //countryMeals={countryMeals}
             />
           </Route>
+          {
+                    meals.map(m => (
+                        <tr key={m.meal_name}>
+                            <td>
+                                {m.country_name} {' '}
+                            </td>
+                            <td>
+                                {m.ingredients} {' '}
+                            </td>
+                            <button className="viewButton" onClick={(e) => getMeals(m.meal_mid)} type="button">View</button>
+                        </tr>
+                    ))
+                }
         </Switch>
       </Router>
     </div>
