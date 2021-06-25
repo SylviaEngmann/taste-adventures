@@ -13,6 +13,7 @@ import Home from './components/Home';
 import Recipe from './components/Recipe';
 import Profile from './components/Profile';
 import Nav from './components/Nav';
+import Map from './components/Map';
 
 import createHistory from 'history/createBrowserHistory';
 
@@ -26,11 +27,15 @@ function Problem() {
   alert("Unsuccessful!");
 }
 
+
+
 function App() {
   const [user, setUser] = useState(Local.getUser());
   const [loginErrorMsg, setLoginErrorMsg] = useState('');
   const history = useHistory();
   let [meals, setMeals] = useState([]);
+  let [countryMeals, setCountryMeals] = useState([]);
+
 
   // ------added by me:
   // create useEffect here (to get changes working for every function)
@@ -38,7 +43,7 @@ function App() {
     getMeals();
   }, []);
 
-
+  
   async function register(input) {
     let options = {
       method: 'POST',
@@ -63,8 +68,6 @@ function App() {
     }
   }
 
-
-
   async function doLogin(email, password) {
     let response = await Api.loginUser(email, password);
     if (response.ok) {
@@ -84,8 +87,6 @@ function doLogout() {
     setUser(null);
     history.push('/');
 }
-
-
 
   async function getMeals(){
     try {
@@ -137,7 +138,7 @@ async function deleteMeal(mid) {
   return (
     <div className="container-fluid">
       <Nav user={user} onLogout={doLogout} />
-<div>
+      <div>
       <Router history={history}>
         <Switch>
           <Route exact path="/">
@@ -163,27 +164,22 @@ async function deleteMeal(mid) {
           < Dashboard/>
 
             </Route>
+          {/* <Route path="/recipe:country_name" 
+          children={< Recipe countryMeals={countryMeals} />} 
+            /> */}
+            
           <Route path="/recipe">
           {/* new variable which is telling insdie comp recipe, {your hook (meals)}
           storing hook meals inside variable - meals1*/}
-            < Recipe meals1={meals} />
+            < Recipe 
+            meals1={meals}
+            //countryMeals={countryMeals}
+            />
           </Route>
-          {
-                    meals.map(m => (
-                        <tr key={m.meal_name}>
-                            <td>
-                                {m.country_name} {' '}
-                            </td>
-                            <td>
-                                {m.ingredients} {' '}
-                            </td>
-                            <button className="viewButton" onClick={(e) => getMeals(m.meal_mid)} type="button">View</button>
-                        </tr>
-                    ))
-                }
         </Switch>
       </Router>
-    </div></div>
+    </div>
+  </div>
   );
 }
 

@@ -4,6 +4,8 @@ import Recipe from './Recipe';
 import {Collapse, Button, CardBody, Card } from 'reactstrap';
 import {CardImg, CardText, CardTitle, CardSubtitle} from 'reactstrap';
 import  '../App.css';
+import createHistory from 'history/createBrowserHistory';
+
 
 const name = {
     color: "#847b6b",
@@ -32,13 +34,51 @@ const page = {
     marginTop: "2rem"
 }
 
-const h5 ={
-    color: "#E0FFFF",
-}
+const mapPlaces = [
+    {
+        id: 1,
+        country: "Ghana",
+        location: [7.9465, 1.0232]
+    },
+    {
+        id: 2,
+        country: "Spain",
+        location: [40.4637, 3.7492]
+    },
+    {
+        id: 3,
+        country: "Poland",
+        location: [51.9194, 19.1451]
+    },
+    {
+        id: 4,
+        country: "Uganda",
+        location: [1.3733, 32.2903]
+    },
+    {
+        id: 5,
+        country: "USA",
+        location: [37.0902, -95.7129]
+    }
+  ]
+
+
+const history = createHistory({forceRefresh:true});
 
 
 export default function Dashboard() {
     let [randomMeal, setRandomRecipe] = useState({});
+    let [countryMeals, setCountryMeals] = useState([]);
+    const [countries, setCountries] = useState([]);
+
+
+    useEffect(() => {
+        setMapPlaces();
+      }, []);
+    
+      function setMapPlaces(){
+        setCountries(mapPlaces);
+      }
 
     async function randomRecipe () {
 
@@ -56,6 +96,22 @@ export default function Dashboard() {
         }
     }
 
+    async function getCountryMeals(country_name){
+        try {
+          let response = await fetch('http://localhost:5000/meals/');
+          if(response.ok){
+            let countryMeals = await response.json();
+            setCountryMeals(countryMeals);
+            history.push('/recipe');
+          } else {
+            console.log(`Server error: ${response.status} ${response.statusText}`);
+          }
+        }  catch(err) {
+          console.log(`Network error: ${err.message}`);
+        }
+      }
+
+
     return (
         <div>
             <div className="row">
@@ -64,15 +120,18 @@ export default function Dashboard() {
             </div>
             <div className="row" style={page}>
                 <div className="col" style={randMeal}>
+                    <h3><b>Option 1: </b><p>Pick a random recipe!</p></h3>
                     <button className="generic-button" onClick={randomRecipe}>Get Random Recipe</button>
-                    <div className="randomRecipe">
+
+                    <div className="randomRecipe">                    
+                    { randomMeal.strMeal &&
                     <Card>
                         <CardBody>
                             <CardTitle tag="h5">{randomMeal.strMeal}</CardTitle>
                             <CardSubtitle tag="h6" className="mb-2 text-muted">Cuisine: {randomMeal.strArea}</CardSubtitle>
-                            <CardBody>
-                            <img src={randomMeal.strMealThumb} alt=" "  width="100%" height="100%"/>
-                            <h5> Ingredients: </h5>
+                            <CardBody>                           
+                                 <img src={randomMeal.strMealThumb} alt=" "  width="50%" height="50%"/>
+                            {/* <h5> Ingredients: </h5> */}
                             <h6>{randomMeal.strMeasure1} {randomMeal.strIngredient1}</h6>
                             <h6>{randomMeal.strMeasure2} {randomMeal.strIngredient2}</h6>
                             <h6>{randomMeal.strMeasure3} {randomMeal.strIngredient3}</h6>
@@ -99,11 +158,16 @@ export default function Dashboard() {
                             </CardBody>
                         </CardBody>
                     </Card>
+                    }
                     </div> 
+
                 </div> 
                 <div className="col">
-                    <h3>Choose a country from the map</h3>
-                    <Map />
+                    <h3><b>Option 2: </b><p>Choose a country from the map</p></h3>
+                    <Map 
+                    countries={countries}
+                    countryMealsCb={(country_name) => getCountryMeals(country_name)}
+                    />
                 </div>                
             </div>
                 
