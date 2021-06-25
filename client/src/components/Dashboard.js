@@ -104,7 +104,7 @@ export default function Dashboard() {
 
     async function getCountryMeals(country_name){
         try {
-          let response = await fetch('http://localhost:5000/meals');
+          let response = await fetch('/meals');
           if(response.ok){
             let countryMeals = await response.json();
             setCountryMeals(countryMeals);

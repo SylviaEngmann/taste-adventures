@@ -29,7 +29,6 @@ app.use(express.urlencoded({
 
 
 app.use(express.static(path.join(__dirname, 'client/build')));
-
 app.use('/', indexRouter);
 app.use('/lovedmeals', indexRouter);
 app.use('/users', usersRouter);
@@ -51,7 +50,7 @@ app.use(session({
 
 // Anything that doesn't match the above, send back index.html
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile(path.join(__dirname + 'client/build/index.html'));
   });
   
 // Catch 404 and forward to error handler

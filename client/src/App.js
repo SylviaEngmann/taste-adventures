@@ -52,7 +52,7 @@ function App() {
     };
 
     try {
-      let response = await fetch('http://localhost:5000/register', options);
+      let response = await fetch('/register', options);
       if (response.ok) {
         let user = await response.json();
         localStorage.setItem('user', JSON.stringify(user));
@@ -90,7 +90,7 @@ function doLogout() {
 
   async function getMeals(){
     try {
-      let response = await fetch('http://localhost:5000/meals');
+      let response = await fetch('/meals');
       if(response.ok){
         let meals = await response.json();
         setMeals(meals);
