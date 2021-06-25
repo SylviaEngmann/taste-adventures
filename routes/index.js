@@ -132,10 +132,12 @@ router.get("/meals", async (req, res) => {
 // The country name will be defined using the MAP API?
 // 1 fetch from the MAP API and another from our database to display recipes from country
 router.get("/meals/:country_name", async (req, res) => {
+  let country = req.params.country_name;
+
   try {
-      let result = await db(`SELECT * FROM meals WHERE country_name = ${country_name};`);
+      let result = await db(`SELECT * FROM meals WHERE country_name = ${country};`);
       let meals = result.data;
-      res.send(meals[0]);
+      res.send(meals);
   } catch (err) {
       res.status(500).send({error: err.message});
   }

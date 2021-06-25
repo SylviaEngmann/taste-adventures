@@ -7,6 +7,13 @@ import createHistory from 'history/createBrowserHistory';
 
 const history = createHistory({forceRefresh:true});
 
+const description = {
+    fontSize: "28px",
+    color: "#847b6b",
+    marginTop: "100px",
+    textAlign: "center"
+};
+
 
 export default function Home() {
     function dashboard(){
@@ -19,7 +26,8 @@ export default function Home() {
                 <div className="col">
                     <div className="home-div">
                         <div className="start-div">
-
+                        <p style={description}>Experience different meals
+                all over the world, from your home.</p>
                             <button className="generic-button" onClick={dashboard}>GET STARTED</button>
                         </div>
                     </div>
