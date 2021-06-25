@@ -1,6 +1,3 @@
-
-CREATE DATABASE tasteadventure;
-
 DROP TABLE IF EXISTS lovedmeals;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS meals;
@@ -69,15 +66,6 @@ CREATE TABLE lovedmeals (
     FOREIGN KEY(mealID) REFERENCES meals(mid)
 );
 
--- Insert some test data
-
--- INSERT INTO users (email, password, firstname, lastname)
--- VALUES
---     ('michelle@gmail.com','hello123','Michelle', 'Bishop'),
---     ('apple@gmail.com','apple1','Sandy', 'Birch'),
---     ('banana@gmail.com','banana1','Lucy', 'Greene');
-
--- Recipe1
 INSERT INTO meals 
 (meal_name, country_name, mealtype, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, preparation1,  preparation2, preparation3, preparation4, preparation5, preparation6, preparation7, preparation8, preparation9, meal_time, url)
 VALUES
@@ -98,7 +86,6 @@ VALUES
     'https://www.kingarthurbaking.com/sites/default/files/styles/featured_image_2x/public/recipe_legacy/1750-3-large.jpg?itok=MwEaAU-G'
     );
 
---Recipe2
 INSERT INTO meals 
 (meal_name, country_name, mealtype, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, ingredient14, ingredient15, preparation1,  preparation2, preparation3, preparation4, preparation5, preparation6, preparation7, preparation8, preparation9, preparation10, meal_time, url)
 VALUES
@@ -120,7 +107,6 @@ VALUES
     'https://whiskedawaykitchen.com/wp-content/uploads/2020/10/polish-style-goulash-3.jpg'
     );
 
-    --Recipe3
 INSERT INTO meals 
 (meal_name, country_name, mealtype, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, preparation1,  preparation2, preparation3, preparation4, preparation5, preparation6, preparation7, preparation8, preparation9, preparation10, preparation11, meal_time, url)
 VALUES
@@ -143,7 +129,6 @@ VALUES
     'https://www.polonist.com/wp-content/uploads/2021/02/Grochowka-1-1600x2400-1.jpg'
     );
 
-    --Recipe4
 INSERT INTO meals 
 (meal_name, country_name, mealtype, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, preparation1,  preparation2, preparation3, preparation4, preparation5, meal_time, url)
 VALUES
@@ -159,7 +144,6 @@ VALUES
     'https://i1.wp.com/www.everydayhealthyrecipes.com/wp-content/uploads/2019/10/Polish-Bigos.jpg?resize=720%2C658&ssl=1'
     );
 
-    --Recipe5
 INSERT INTO meals 
 (meal_name, country_name, mealtype, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, preparation1,  preparation2, preparation3, preparation4, preparation5, preparation6, preparation7, preparation8, preparation9, preparation10, preparation11, preparation12, preparation13, preparation14, meal_time, url)
 VALUES
